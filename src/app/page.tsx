@@ -1,65 +1,248 @@
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 import Image from "next/image";
+import Moviecard from "@/components/Moviecard";
+import Contentimage from "@/components/Content";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="max-w-[1440px] mx-auto w-full flex flex-col relative">
+      <Carousel className="  relative group ">
+        <CarouselContent>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <CarouselItem key={index}>
+              <div className="p-1">
+                <Card className="relative flex w-full h-auto overflow-hidden">
+                  <Contentimage
+                    contentimage="/Feature.png"
+                    playing="Now playing :"
+                    contentname="Wicked"
+                    rating={6.9}
+                    contenttext="Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads. "
+                  />
+                </Card>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious
+          className=" absolute  left-12
+        w-4 py-5 px-5
+    top-1/2
+    -translate-y-1/2
+    z-10
+    opacity-0
+    group-hover:opacity-100
+    transition "
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <CarouselNext
+          className=" absolute   right-11
+          w-4 py-5 px-5
+    top-1/2
+    -translate-y-1/2
+    z-10
+    opacity-0
+    group-hover:opacity-100
+    transition "
+        />
+      </Carousel>
+      <div className="px-20">
+        <div className="flex max-w-[1440px] w-full  justify-between items-center py-8  ">
+          <p className="flex justify-start w-[120px] h-[36px] items-center text-2xl font-bold">
+            Upcoming
           </p>
+          <span className="flex justify-center w-[120px] h-[36px] gap-2 items-center">
+            See more
+            <Image src="/arrow-right.png" alt="arrow" width={16} height={16} />
+          </span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="flex flex-wrap   justify-center gap-8">
+          <Moviecard
+            image={"/card-image.png"}
+            rating={"6.9"}
+            moviename={"Dear Santa"}
+          />
+          <Moviecard
+            image={"/card-image1.png"}
+            rating={"6.9"}
+            moviename={"How To Train Your Dragon Live Action"}
+          />
+          <Moviecard
+            image={"/card-image2.png"}
+            rating={"6.9"}
+            moviename={"Alien Romulus"}
+          />
+          <Moviecard
+            image={"/card-image3.png"}
+            rating={"6.9"}
+            moviename={"From the Ashes"}
+          />
+          <Moviecard
+            image={"/card-image4.png"}
+            rating={"6.9"}
+            moviename={"Space Dogg"}
+          />
+          <Moviecard
+            image={"/card-image-5.png"}
+            rating={"6.9"}
+            moviename={"The Order"}
+          />
+          <Moviecard
+            image={"/card-image6.png"}
+            rating={"6.9"}
+            moviename={"Y2K"}
+          />
+          <Moviecard
+            image={"/card-image-7.png"}
+            rating={"6.9"}
+            moviename={"Solo Leveling: ReAwakening"}
+          />
+          <Moviecard
+            image={"/card-image8.png"}
+            rating={"6.9"}
+            moviename={"Get Away"}
+          />
+          <Moviecard
+            image={"/card-image9.png"}
+            rating={"6.9"}
+            moviename={"Sonic the Hedgehog 3"}
+          />
         </div>
-      </main>
+      </div>
+      <div className="px-20">
+        <div className="flex max-w-[1440px] w-full  justify-between items-center py-8  ">
+          <p className="flex justify-start w-[120px] h-[36px] items-center text-2xl font-bold">
+            Popular
+          </p>
+          <span className="flex justify-center w-[120px] h-[36px] gap-2 items-center">
+            See more
+            <Image src="/arrow-right.png" alt="arrow" width={16} height={16} />
+          </span>
+        </div>
+        <div className="flex flex-wrap   justify-center gap-8">
+          <Moviecard
+            image={"/popularimage.png"}
+            rating={"6.9"}
+            moviename={"The Shawshank Redemption"}
+          />
+          <Moviecard
+            image={"/popularimage1.png"}
+            rating={"6.9"}
+            moviename={"The Godfather"}
+          />
+          <Moviecard
+            image={"/popularimage2.png"}
+            rating={"6.9"}
+            moviename={"The Dark Knight"}
+          />
+          <Moviecard
+            image={"/popularimage3.png"}
+            rating={"6.9"}
+            moviename={"The Dark Knight"}
+          />
+          <Moviecard
+            image={"/popularimage4.png"}
+            rating={"6.9"}
+            moviename={"The Lord of the Rings: The  Return of the King"}
+          />
+          <Moviecard
+            image={"/popularimage5.png"}
+            rating={"6.9"}
+            moviename={"Internstellar"}
+          />
+          <Moviecard
+            image={"/popularimage6.png"}
+            rating={"6.9"}
+            moviename={"Se7en"}
+          />
+          <Moviecard
+            image={"/popularimage7.png"}
+            rating={"6.9"}
+            moviename={"It’s a Wonderful life"}
+          />
+          <Moviecard
+            image={"/popularimage8.png"}
+            rating={"6.9"}
+            moviename={"Seven samurai"}
+          />
+          <Moviecard
+            image={"/popularimage9.png"}
+            rating={"6.9"}
+            moviename={"The Silence of the Lambs"}
+          />
+        </div>
+      </div>
+      <div className="px-20">
+        <div className="flex max-w-[1440px] w-full  justify-between items-center py-8  ">
+          <p className="flex justify-start w-[120px] h-[36px] items-center text-2xl font-bold">
+            Top Rated
+          </p>
+          <span className="flex justify-center w-[120px] h-[36px] gap-2 items-center">
+            See more
+            <Image src="/arrow-right.png" alt="arrow" width={16} height={16} />
+          </span>
+        </div>
+        <div className="flex flex-wrap   justify-center gap-8">
+          <Moviecard
+            image={"/top-image.png"}
+            rating={"6.9"}
+            moviename={"Pulp Fiction"}
+          />
+          <Moviecard
+            image={"/top-image1.png"}
+            rating={"6.9"}
+            moviename={"The Lord of the Rings: Fellowship of the Kings"}
+          />
+          <Moviecard
+            image={"/top-image2.png"}
+            rating={"6.9"}
+            moviename={"The Good, the Bad and the Ugly"}
+          />
+          <Moviecard
+            image={"/top-image3.png"}
+            rating={"6.9"}
+            moviename={"Forrest Gump"}
+          />
+          <Moviecard
+            image={"/top-image4.png"}
+            rating={"6.9"}
+            moviename={"Fight Club"}
+          />
+          <Moviecard
+            image={"/top-image5.png"}
+            rating={"6.9"}
+            moviename={"Saving Private Ryan"}
+          />
+          <Moviecard
+            image={"/top-image6.png"}
+            rating={"6.9"}
+            moviename={"City of God"}
+          />
+          <Moviecard
+            image={"/top-image7.png"}
+            rating={"6.9"}
+            moviename={"The Green Mile"}
+          />
+          <Moviecard
+            image={"/top-image8.png"}
+            rating={"6.9"}
+            moviename={"Life is Beautiful"}
+          />
+          <Moviecard
+            image={"/top-image9.png"}
+            rating={"6.9"}
+            moviename={"Terminator 2: Judgement Day"}
+          />
+        </div>
+      </div>
     </div>
   );
 }
