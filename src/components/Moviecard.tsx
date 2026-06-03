@@ -1,4 +1,4 @@
-"use cient"
+"use cient";
 
 import { Card } from "./ui/card";
 import { CardContent } from "./ui/card";
@@ -8,6 +8,7 @@ import type { MoviecardProps } from "@/app/page";
 import Link from "next/link";
 
 const MovieCard = ({ movie }: { movie: MoviecardProps }) => {
+  if (!movie.poster_path) return null;
   return (
     <Link href={`/movie/${movie.id}`}>
       <Card className="w-[230px] overflow-hidden">
@@ -17,10 +18,9 @@ const MovieCard = ({ movie }: { movie: MoviecardProps }) => {
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
               fill
-              sizes="(max-width: 768px) 100vw, 230px"
+              sizes="230px"
               className="object-cover"
-              loading="eager"
-              style={{ width: "100%", height: "100%" }}
+              unoptimized
             />
           </div>
 

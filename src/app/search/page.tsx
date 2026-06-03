@@ -1,17 +1,53 @@
 "use client";
 
-"use client";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Navigation from "@/components/Navigation";
+import MovieCard from "@/components/MovieCard";
 
-export default function SearchBar() {
+const SearchPage = () => {
   const searchParams = useSearchParams();
+  const query = searchParams.get("query");
 
-  const search = searchParams.get("search");
+  const [movies, setMovies] = useState<any[]>([]);
 
-  // This will be logged on the server during the initial render
-  // and on the client on subsequent navigations.
-  console.log(search);
+  useEffect(() => {
+    if (!query) return;
 
-  return <>Search: {search}</>;
-}
+    axios
+      .get(
+        `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=1`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+          },
+        },
+      )
+      .then((response) => {
+        setMovies(response.data.results);
+      });
+  }, [query]);
+
+  return (
+    <div>
+      <Navigation />
+
+      <div className="flex justify-center">
+        <div className="w-[1280px] px-10">
+          <h1 className="text-2xl font-semibold mb-5">
+            Search results for: {query}
+          </h1>
+
+          <div className="flex flex-wrap gap-5">
+            {movies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SearchPage;

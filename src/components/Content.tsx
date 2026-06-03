@@ -19,7 +19,7 @@ const Contentimage = ({
   contenttext,
 }: ContentImageProps) => {
   return (
-    <CardContent className="flex w-full h-[600px] relative p-0 overflow-hidden">
+    <CardContent className="flex w-full h-150 relative p-0 overflow-hidden">
       <Image
         src={contentimage}
         alt={contentname}
@@ -40,12 +40,12 @@ const Contentimage = ({
         <p className="text-[#FAFAFA] text-xs font-normal w-[302px]   ">
           {contenttext}
         </p>
-        <div className="flex bg-white p-3 w-[145px] items-center rounded-md gap-2">
+        <button className="flex bg-white p-3 w-[145px] items-center cursor-pointer rounded-md gap-2">
           <div className="w-4 h-4 relative">
             <Image src={"/play.png"} alt="trailer" width={16} height={16} />
           </div>
           <p className="text-sm">Watch Trailer</p>
-        </div>
+        </button>
       </div>
     </CardContent>
   );

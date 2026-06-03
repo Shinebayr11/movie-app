@@ -24,17 +24,16 @@ const MoviesData = ({ title }: { title: string }) => {
         `https://api.themoviedb.org/3/movie/${title}?language=en-US&page=1`,
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNWQ5NzM4NTlmMTM3MzQzNjQ1MWJlZWM3NWFlNzVkOSIsIm5iZiI6MTc3OTI2ODIxMi4xMDYsInN1YiI6IjZhMGQ3YTc0ZjBiNDVhZGU5MDA2YTdiNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zJVw16x-JbKpRDDJV1sTdA2WmEsgbhKXLBvgCrn81SU`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
           },
         },
       )
       .then((response) => {
         setMovies(response.data.results);
       })
-       .finally(() => {
-    setLoading(false);
-  });
-      
+      .finally(() => {
+        setLoading(false);
+      });
   }, [title]);
 
   return (
@@ -55,15 +54,10 @@ const MoviesData = ({ title }: { title: string }) => {
 
       <div className="flex gap-8 flex-wrap justify-center">
         {loading ? (
-  <Skeleton />
-) : (
-  movies.map((movie) => (
-    <MovieCard 
-      key={movie.id}
-      movie={movie}
-    />
-  ))
-)}
+          <Skeleton />
+        ) : (
+          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+        )}
       </div>
     </div>
   );

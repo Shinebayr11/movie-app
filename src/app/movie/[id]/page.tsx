@@ -83,8 +83,7 @@ const Demo = () => {
     axios
       .get(`https://api.themoviedb.org/3/movie/${params.id}`, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNWQ5NzM4NTlmMTM3MzQzNjQ1MWJlZWM3NWFlNzVkOSIsIm5iZiI6MTc3OTI2ODIxMi4xMDYsInN1YiI6IjZhMGQ3YTc0ZjBiNDVhZGU5MDA2YTdiNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zJVw16x-JbKpRDDJV1sTdA2WmEsgbhKXLBvgCrn81SU",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
         },
       })
       .then((response) => {
@@ -95,8 +94,7 @@ const Demo = () => {
     axios
       .get(`https://api.themoviedb.org/3/movie/${params.id}/credits`, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNWQ5NzM4NTlmMTM3MzQzNjQ1MWJlZWM3NWFlNzVkOSIsIm5iZiI6MTc3OTI2ODIxMi4xMDYsInN1YiI6IjZhMGQ3YTc0ZjBiNDVhZGU5MDA2YTdiNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zJVw16x-JbKpRDDJV1sTdA2WmEsgbhKXLBvgCrn81SU",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
         },
       })
       .then((response) => setCredits(response.data));
@@ -105,82 +103,78 @@ const Demo = () => {
     axios
       .get(`https://api.themoviedb.org/3/movie/${params.id}/similar`, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNWQ5NzM4NTlmMTM3MzQzNjQ1MWJlZWM3NWFlNzVkOSIsIm5iZiI6MTc3OTI2ODIxMi4xMDYsInN1YiI6IjZhMGQ3YTc0ZjBiNDVhZGU5MDA2YTdiNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zJVw16x-JbKpRDDJV1sTdA2WmEsgbhKXLBvgCrn81SU",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
         },
       })
       .then((response) => {
-        setMorelike(response.data.results);
+        const filtered = response.data.results.filter(
+          (movie: any) => movie.poster_path,
+        );
+
+        setMorelike(filtered);
       });
   }, [params.id]);
-  // useEffect(() => {
-  //   if (!params.id) return;
+  useEffect(() => {
+    if (!params.id) return;
 
-  //   axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/movie/${params.id}/videos?language=en-US&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
-  //     )
-  //     .then((response) => {
-  //       const videos = response.data.results;
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${params.id}/videos?language=en-US`,
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNWQ5NzM4NTlmMTM3MzQzNjQ1MWJlZWM3NWFlNzVkOSIsIm5iZiI6MTc3OTI2ODIxMi4xMDYsInN1YiI6IjZhMGQ3YTc0ZjBiNDVhZGU5MDA2YTdiNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zJVw16x-JbKpRDDJV1sTdA2WmEsgbhKXLBvgCrn81SU",
+          },
+        },
+      )
+      .then((response) => {
+        const videos = response.data.results;
 
-  //       const trailerVideo = videos.find(
-  //         (video: any) => video.type === "Trailer" && video.site === "YouTube",
-  //       );
+        const trailerVideo = videos.find(
+          (video: any) => video.site === "YouTube",
+        );
 
-  //       if (trailerVideo) {
-  //         setTrailer(trailerVideo.key);
-  //       } else {
-  //         setTrailer("");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setTrailer("");
-  //     });
-  // }, [params.id]);
+        if (trailerVideo) {
+          setTrailer(trailerVideo.key);
+        } else {
+          setTrailer("");
+        }
+      })
+      .catch((error) => {
+        setTrailer("");
+      });
+  }, [params.id]);
 
   const handleOnclick = () => setTrailerShow(!trailerShow);
   if (!movie) {
     return (
-    <div className="flex w-full justify-center flex-col">
-      <Navigation />
+      <div className="flex w-full justify-center flex-col">
+        <Navigation />
 
-      <div className="flex justify-center w-full">
-        <div className="max-w-[1080px] flex flex-col gap-5">
+        <div className="flex justify-center w-full">
+          <div className="max-w-[1080px] flex flex-col gap-5">
+            <div className="flex relative gap-[30px] animate-pulse">
+              <div className="relative w-[290px] h-[428px] bg-gray-300 rounded-md" />
 
-          <div className="flex relative gap-[30px] animate-pulse">
+              <div className="w-[760px] h-[428px] bg-gray-300 rounded-md" />
+            </div>
 
-            {/* poster skeleton */}
-            <div className="relative w-[290px] h-[428px] bg-gray-300 rounded-md" />
+            <div className="animate-pulse flex flex-col gap-3">
+              <div className="w-[400px] h-8 bg-gray-300 rounded" />
+              <div className="w-[250px] h-5 bg-gray-300 rounded" />
+            </div>
 
-            {/* backdrop skeleton */}
-            <div className="w-[760px] h-[428px] bg-gray-300 rounded-md" />
+            <div className="animate-pulse flex flex-col gap-3">
+              <div className="w-full h-4 bg-gray-300 rounded" />
+              <div className="w-[80%] h-4 bg-gray-300 rounded" />
+              <div className="w-[60%] h-4 bg-gray-300 rounded" />
+            </div>
 
+            <Skeleton />
           </div>
-
-
-          {/* title */}
-          <div className="animate-pulse flex flex-col gap-3">
-            <div className="w-[400px] h-8 bg-gray-300 rounded" />
-            <div className="w-[250px] h-5 bg-gray-300 rounded" />
-          </div>
-
-
-          {/* details text */}
-          <div className="animate-pulse flex flex-col gap-3">
-            <div className="w-full h-4 bg-gray-300 rounded" />
-            <div className="w-[80%] h-4 bg-gray-300 rounded" />
-            <div className="w-[60%] h-4 bg-gray-300 rounded" />
-          </div>
-
-
-          {/* More like cards */}
-          <Skeleton />
-
         </div>
       </div>
-    </div>
-  );
+    );
   }
 
   const director = credits?.crew?.find((person) => person.job === "Director");
@@ -189,7 +183,7 @@ const Demo = () => {
     (person) => person.job === "Writer" || person.job === "Screenplay",
   );
 
-  const stars = credits?.cast?.slice(0, 3);
+  const stars = credits?.cast?.slice(0, 5);
   console.log(movie);
   return (
     <div className="flex w-full justify-center flex-col">

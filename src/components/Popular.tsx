@@ -59,14 +59,15 @@ const Popular = ({ title }: { title: string }) => {
               <Card key={movie.id} className="w-[230px]  object-hidden  ">
                 <CardContent className="p-0">
                   <div className="relative w-full h-[340px]">
-                    <Image
-                      key={movie.id}
-                      src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                      alt={movie.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 230px"
-                      className="object-cover"
-                    />
+                    {movie.backdrop_path && (
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                        alt={movie.title || "movie"}
+                        fill
+                        className="object-cover"
+                        sizes="760px"
+                      />
+                    )}
                   </div>
 
                   <div className="flex flex-col text-sm py-2 px-3 bg-[#F4F4F5] ">
