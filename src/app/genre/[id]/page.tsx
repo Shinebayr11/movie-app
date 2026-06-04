@@ -1,66 +1,151 @@
 "use client";
 
-import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import MovieCard from "@/components/MovieCard";
+import Navigation from "@/components/Navigation";
+import axios from "axios";
+import Image from "next/image";
+import { Star } from "lucide-react";
+import Link from "next/link";
+import { Footer } from "@/components/Footer";
+
+type GenreType = {
+  id: number;
+  name: string;
+};
 
 const GenrePage = () => {
   const params = useParams();
-  const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const genreName = searchParams.get("name");
+
   const [movies, setMovies] = useState<any[]>([]);
+  const [genres, setGenres] = useState<GenreType[]>([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/discover/movie?with_genres=${params.id}&language=en-US&page=${page}`,
-      {
+    axios
+      .get("https://api.themoviedb.org/3/genre/movie/list?language=en-US", {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
         },
-      },
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setMovies(data.results || []);
-        setTotalPages(data.total_pages > 500 ? 500 : data.total_pages);
+      })
+      .then((response) => {
+        setGenres(response.data.genres);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/discover/movie?language=en-US&with_genres=${params.id}&page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+          },
+        },
+      )
+      .then((response) => {
+        setMovies(response.data.results);
+        setTotalResults(response.data.total_results);
       });
   }, [params.id, page]);
 
+  const changeGenre = (genre: GenreType) => {
+    setPage(1);
+    router.push(`/genre/${genre.id}?name=${genre.name}`);
+  };
+
   return (
-    <div className="max-w-[1280px] mx-auto px-20 py-10">
-      <h1 className="text-2xl font-bold mb-8">{genreName} Movies</h1>
+    <div className="min-h-screen bg-white">
+      <Navigation />
 
-      <div className="grid grid-cols-4 gap-8">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+      <div className="w-full flex justify-center">
+        <div className="w-[1280px] px-[72px]">
+          <h1 className="text-[28px] font-bold mb-8">Search filter</h1>
+
+          <div className="flex gap-12">
+            <div className="w-[330px]">
+              <h2 className="text-[22px] font-bold mb-1">Genres</h2>
+              <p className="text-sm text-gray-600 mb-5">
+                See lists of movies by genre
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                {genres.map((genre) => {
+                  const active = String(genre.id) === String(params.id);
+
+                  return (
+                    <button
+                      key={genre.id}
+                      onClick={() => changeGenre(genre)}
+                      className={`flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium ${
+                        active
+                          ? "bg-black text-white border-black"
+                          : "bg-white text-black border-gray-300"
+                      }`}
+                    >
+                      {genre.name}
+                      <span>{active ? "×" : "›"}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <section className="flex-1 border-l border-gray-200 pl-10">
+              <h2 className="text-lg font-bold mb-8">
+                {totalResults} titles in “{genreName}”
+              </h2>
+
+              <div className="grid grid-cols-4 gap-x-8 gap-y-8">
+                {movies.slice(0, 12).map((movie) => (
+                  <Link
+                    href={`/movie/${movie.id}`}
+                    key={movie.id}
+                    className="w-[165px] bg-[#F4F4F5] rounded-md overflow-hidden"
+                  >
+                    <div className="relative w-[165px] h-[244px]">
+                      <Image
+                        src={
+                          movie.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                            : "/placeholder.png"
+                        }
+                        alt={movie.title}
+                        fill
+                        sizes="165px"
+                        loading="eager"
+                        className="object-cover"
+                      />
+                    </div>
+
+                    <div className="p-2">
+                      <div className="flex items-center gap-1 text-xs">
+                        <Star
+                          size={14}
+                          fill="#FDE047"
+                          className="text-yellow-400"
+                        />
+
+                        <span>{movie.vote_average.toFixed(1)}</span>
+
+                        <span className="text-gray-500">/10</span>
+                      </div>
+
+                      <p className="text-sm line-clamp-2 mt-1">{movie.title}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
-
-      <div className="flex justify-center items-center gap-4 mt-10">
-        <button
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-          className="px-4 py-2 border rounded-md disabled:opacity-40"
-        >
-          Previous
-        </button>
-
-        <p>
-          {page} / {totalPages}
-        </p>
-
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
-          className="px-4 py-2 border rounded-md disabled:opacity-40"
-        >
-          Next
-        </button>
-      </div>
+      <Footer />
     </div>
   );
 };

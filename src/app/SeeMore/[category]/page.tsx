@@ -17,6 +17,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useParams } from "next/navigation";
+import { Footer } from "@/components/Footer";
 
 const SeeMore = () => {
   const params = useParams();
@@ -134,6 +135,7 @@ const SeeMore = () => {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
+      <Footer />
     </div>
   );
 };

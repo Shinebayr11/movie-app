@@ -2,7 +2,6 @@
 import Image from "next/image";
 import React from "react";
 import ReactPlayer from "react-player";
-import { useState } from "react";
 
 interface Props {
   movie: any;

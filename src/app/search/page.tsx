@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import MovieCard from "@/components/MovieCard";
+import { Footer } from "@/components/Footer";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -46,6 +47,7 @@ const SearchPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

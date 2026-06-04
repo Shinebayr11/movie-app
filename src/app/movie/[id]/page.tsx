@@ -10,6 +10,7 @@ import DetailsHero from "@/components/DetailsHero";
 import DetailsContent from "@/components/Detailscontent";
 import DetailsMoreLike from "@/components/DetailsMoreLike";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Footer } from "@/components/Footer";
 
 export interface genreType {
   id: number;
@@ -205,6 +206,7 @@ const Demo = () => {
           <DetailsMoreLike movies={morelike} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

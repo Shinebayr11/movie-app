@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import CarouselData from "@/components/Carousel";
 import MoviesData from "@/components/MoviesData";
 import Navigation from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
 
 export interface MoviecardProps {
   adult: boolean;
@@ -70,6 +71,7 @@ export default function Home() {
           <MoviesData title="popular" />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
