@@ -74,6 +74,7 @@ interface TrailerProps {
 
 const Demo = () => {
   const params = useParams();
+  const [similar, setSimilar] = useState<any[]>([]);
   const [credits, setCredits] = useState<MovieDescriptionType | null>(null);
   const [movie, setMovie] = useState<MovieDetailsType | null>(null);
   const [morelike, setMorelike] = useState<any[]>([]);
@@ -203,7 +204,7 @@ const Demo = () => {
             writers={writers}
             stars={stars}
           />
-          <DetailsMoreLike movies={morelike} />
+          <DetailsMoreLike movies={morelike} movieId={Number(params.id)} />
         </div>
       </div>
       <Footer />

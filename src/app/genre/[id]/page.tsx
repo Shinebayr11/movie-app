@@ -9,6 +9,15 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 type GenreType = {
   id: number;
@@ -26,6 +35,7 @@ const GenrePage = () => {
   const [genres, setGenres] = useState<GenreType[]>([]);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     axios
@@ -51,6 +61,7 @@ const GenrePage = () => {
       .then((response) => {
         setMovies(response.data.results);
         setTotalResults(response.data.total_results);
+        setTotalPages(response.data.total_pages);
       });
   }, [params.id, page]);
 
@@ -145,6 +156,71 @@ const GenrePage = () => {
           </div>
         </div>
       </div>
+      <Pagination className="h-20">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              href="#"
+              onClick={() => setPage((prev) => (prev > 1 ? prev - 1 : prev))}
+            />
+          </PaginationItem>
+
+          {page > 2 && (
+            <>
+              <PaginationItem>
+                <PaginationLink href="#" onClick={() => setPage(1)}>
+                  1
+                </PaginationLink>
+              </PaginationItem>
+
+              <PaginationEllipsis />
+            </>
+          )}
+
+          {page > 1 && (
+            <PaginationItem>
+              <PaginationLink href="#" onClick={() => setPage(page - 1)}>
+                {page - 1}
+              </PaginationLink>
+            </PaginationItem>
+          )}
+
+          <PaginationItem>
+            <PaginationLink href="#" isActive>
+              {page}
+            </PaginationLink>
+          </PaginationItem>
+
+          {page < totalPages && (
+            <PaginationItem>
+              <PaginationLink href="#" onClick={() => setPage(page + 1)}>
+                {page + 1}
+              </PaginationLink>
+            </PaginationItem>
+          )}
+
+          {page < totalPages - 1 && (
+            <>
+              <PaginationEllipsis />
+
+              <PaginationItem>
+                <PaginationLink href="#" onClick={() => setPage(totalPages)}>
+                  {totalPages}
+                </PaginationLink>
+              </PaginationItem>
+            </>
+          )}
+
+          <PaginationItem>
+            <PaginationNext
+              href="#"
+              onClick={() =>
+                setPage((prev) => (prev < totalPages ? prev + 1 : prev))
+              }
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
       <Footer />
     </div>
   );

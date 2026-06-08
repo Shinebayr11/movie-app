@@ -4,20 +4,31 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   movies: any[];
+  movieId: number;
 }
 
-const DetailsMoreLike = ({ movies }: Props) => {
+const DetailsMoreLike = ({ movies, movieId }: Props) => {
   const router = useRouter();
   const pushDetails = (id: number) => {
     router.push(`/movie/${id}`);
+  };
+  const pushSeeMore = (category: string) => {
+    router.push(`/SeeMore/${category}`);
   };
 
   return (
     <div className="flex flex-col gap-4">
       <span className="flex justify-between">
         <h2 className="text-2xl font-semibold">More like this</h2>
+        <button
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => router.push(`/movie/${movieId}/similar`)}
+        >
+          See more
+          <Image src="/vector.png" alt="arrow" width={10} height={10} />
+        </button>
       </span>
-      <div className="grid grid-cols-5 gap-4">
+      <div className="flex flex-wrap gap-4">
         {movies
           ?.filter((movie) => movie.poster_path)
           .slice(0, 10)
