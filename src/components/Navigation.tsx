@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SearchInput from "@/components/SearchInput";
+import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
+import Link from "next/link";
 
 type GenreType = {
   id: number;
@@ -41,7 +43,9 @@ const Navigation = () => {
       <div className="flex justify-between w-[1280px] p-10">
         <div className="flex items-center gap-2">
           <img className="w-4 h-4" src="/film.png" alt="film" />
-          <p className="text-[#4338CA] italic font-bold">Movie Z</p>
+          <Link href="/" className="text-[#4338CA] italic font-bold">
+            Movie Z
+          </Link>
         </div>
 
         <div className="flex items-center gap-3 relative">
@@ -83,9 +87,10 @@ const Navigation = () => {
           </div>
         </div>
 
-        <button className="cursor-pointer">
-          <img src="/Modes.png" alt="mode" width={40} height={40} />
-        </button>
+        <AnimatedThemeToggler
+          className="p-2 rounded-md transition-colors duration-300"
+          variant="star"
+        />
       </div>
     </div>
   );
