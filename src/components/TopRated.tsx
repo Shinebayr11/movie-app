@@ -1,10 +1,13 @@
-import Image, { StaticImageData } from "next/image";
+"use client";
+
+import Image from "next/image";
 
 import { Card, CardContent } from "./ui/card";
 import { Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface MoviecardProps {
   adult: boolean;
@@ -26,7 +29,9 @@ interface MoviecardProps {
 }
 
 const TopRated = () => {
+  const router = useRouter();
   const [movies, setMovies] = useState<MoviecardProps[]>([]);
+
   useEffect(() => {
     axios
       .get(
@@ -49,7 +54,10 @@ const TopRated = () => {
         <p className="flex justify-start w-[120px] h-[36px] items-center text-2xl font-bold">
           TopRated
         </p>
-        <button className="flex justify-center cursor-pointer w-[120px] h-[36px] gap-2 items-center">
+        <button
+          onClick={() => router.push("/SeeMore/top_rated")}
+          className="flex justify-center cursor-pointer w-[120px] h-[36px] gap-2 items-center"
+        >
           See more
           <ArrowRight size={16} />
         </button>
@@ -63,7 +71,7 @@ const TopRated = () => {
                   <div className="relative w-full h-[340px]">
                     <Image
                       key={movie.id}
-                      src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                       alt={movie.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 230px"
