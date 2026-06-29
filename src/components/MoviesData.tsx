@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import MovieCard from "./MovieCard";
 import Skeleton from "./Skeleton";
+import { ArrowRight } from "lucide-react";
 
 const MoviesData = ({ title }: { title: string }) => {
   const router = useRouter();
@@ -48,7 +49,7 @@ const MoviesData = ({ title }: { title: string }) => {
           onClick={() => pushSeeMore(title)}
         >
           See more
-          <Image src="/vector.png" alt="arrow" width={10} height={10} />
+          <ArrowRight size={10} />
         </button>
       </div>
 

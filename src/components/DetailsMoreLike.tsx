@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -25,7 +25,7 @@ const DetailsMoreLike = ({ movies, movieId }: Props) => {
           onClick={() => router.push(`/movie/${movieId}/similar`)}
         >
           See more
-          <Image src="/vector.png" alt="arrow" width={10} height={10} />
+          <ArrowRight size={10} />
         </button>
       </span>
       <div className="flex flex-wrap gap-4">
