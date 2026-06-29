@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 
 import { Card, CardContent } from "./ui/card";
-import { Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
