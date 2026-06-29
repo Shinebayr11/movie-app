@@ -50,7 +50,7 @@ const Upcoming = () => {
         </p>
         <button className="flex justify-center cursor-pointer w-[120px] h-[36px] gap-2 items-center">
           See more
-          <Image src="/arrow-right.png" alt="arrow" width={16} height={16} />
+          <ArrowRight size={16} />
         </button>
       </div>
       <div className="flex flex-wrap   justify-center gap-8">
