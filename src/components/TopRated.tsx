@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image  from "next/image";
 
 import { Card, CardContent } from "./ui/card";
 import { Star } from "lucide-react";

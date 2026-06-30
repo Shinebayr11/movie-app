@@ -56,7 +56,7 @@ const DetailsMoreLike = ({ movies, movieId }: Props) => {
                     <span className="text-gray-300 text-xs">/10</span>
                   </span>
                 </p>
-                <span className="flex text-lg  items-start w-full h-14">
+                <span className="flex text-lg dark:text-black  items-start w-full h-14">
                   {movie.title}
                 </span>
               </div>

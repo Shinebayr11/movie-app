@@ -44,7 +44,7 @@ const Contentimage = ({
           <div className="w-4 h-4 relative">
             <Image src={"/play.png"} alt="trailer" width={16} height={16} />
           </div>
-          <p className="text-sm">Watch Trailer</p>
+          <p className="text-sm dark:text-black">Watch Trailer</p>
         </button>
       </div>
     </CardContent>

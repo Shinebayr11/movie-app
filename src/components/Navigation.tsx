@@ -54,7 +54,7 @@ const Navigation = () => {
             className="flex cursor-pointer items-center w-[97px] gap-2 px-3 py-2 rounded-md border bg-white shadow-sm"
           >
             <img className="h-4 w-4" src="/downarrow.png" alt="down" />
-            <p>Genre</p>
+            <p className="dark:text-black">Genre</p>
           </button>
 
           {openGenre && (
@@ -76,13 +76,6 @@ const Navigation = () => {
             className="flex items-center gap-2.5 px-3 py-2 rounded-md border bg-white shadow-sm"
           >
             <img className="h-4 w-4" src="/search.png" alt="search" />
-            {/* <input
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              type="search"
-              placeholder="Search..."
-              className="outline-none"
-            /> */}
             <SearchInput />
           </div>
         </div>

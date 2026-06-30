@@ -96,8 +96,8 @@ const CarouselData = () => {
             ))}
         </CarouselContent>
 
-        <CarouselPrevious className="absolute cursor-pointer left-12 w-4 py-5 px-5 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition" />
-        <CarouselNext className="absolute cursor-pointer right-11 w-4 py-5 px-5 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition" />
+        <CarouselPrevious className="absolute cursor-pointer left-12 w-4 py-5 px-5 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition dark:bg-white dark:text-black" />
+        <CarouselNext className="absolute cursor-pointer right-11 w-4 py-5 px-5 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition dark:bg-white dark:text-black" />
       </Carousel>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -126,79 +126,3 @@ const CarouselData = () => {
 };
 
 export default CarouselData;
-
-// import { Card } from "@/components/ui/card";
-// import {
-//   Carousel,
-//   CarouselContent,
-//   CarouselItem,
-//   CarouselNext,
-//   CarouselPrevious,
-// } from "@/components/ui/carousel";
-// import Contentimage from "./Content";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { CarouselProps } from "@/app/page";
-
-// const CarouselData = () => {
-//   const [carousel, setCarousel] = useState<CarouselProps[]>([]);
-//   useEffect(() => {
-//     axios
-//       .get(
-//         `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}`,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
-//           },
-//         },
-//       )
-//       .then((response) => {
-//         setCarousel(response.data.results);
-//       });
-//   }, []);
-//   return (
-//     <Carousel className="relative h-150 group ">
-//       <CarouselContent>
-//         {carousel
-//           .filter((movie) => movie.backdrop_path)
-//           .map((movie) => (
-//             <CarouselItem key={movie.id}>
-//               <div className="p-1">
-//                 <Card className="relative flex bg-cover overflow-hidden">
-//                   <Contentimage
-//                     contentimage={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
-//                     playing="Now Playing"
-//                     contentname={movie.title}
-//                     rating={movie.vote_average}
-//                     contenttext={movie.overview}
-//                   />
-//                 </Card>
-//               </div>
-//             </CarouselItem>
-//           ))}
-//       </CarouselContent>
-//       <CarouselPrevious
-//         className=" absolute  left-12
-//         w-4 py-5 px-5
-//     top-1/2
-//     -translate-y-1/2
-//     z-10
-//     opacity-0
-//     group-hover:opacity-100
-//     transition "
-//       />
-//       <CarouselNext
-//         className=" absolute   right-11
-//           w-4 py-5 px-5
-//     top-1/2
-//     -translate-y-1/2
-//     z-10
-//     opacity-0
-//     group-hover:opacity-100
-//     transition "
-//       />
-//     </Carousel>
-//   );
-// };
-
-// export default CarouselData;
